@@ -1,3 +1,73 @@
+<?php
+require 'vendor/autoload.php';
+MercadoPago\SDK::setAccessToken('APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398');
+MercadoPago\SDK::setIntegratorId("dev_24c65fb163bf11ea96500242ac130004");
+
+// Crea un objeto de preferencia
+$preference = new MercadoPago\Preference();
+
+// Tengo que sacar amex y atm
+$preference->payment_methods = array(
+    "excluded_payment_methods" => array(
+      array("id" => "amex")
+    ),
+    "excluded_payment_types" => array(
+      array("id" => "atm")
+    ),
+    "installments" => 6
+  );
+
+// back urls y autoreturn
+$preference->auto_return = "all"; //Redirige automáticamente a tu sitio cuando el pago finaliza como aprobado. Los valores posibles son approved y all.
+$preference->back_urls = array(
+    "success" => "https://jorgeiv-mp-ecommerce-php.herokuapp.com/success.php",
+    "failure" => "https://jorgeiv-mp-ecommerce-php.herokuapp.com/failure.php",
+    "pending" => "https://jorgeiv-mp-ecommerce-php.herokuapp.com/pending.php"
+);
+
+// Crea un ítem en la preferencia
+$item = new MercadoPago\Item();
+$item->picture_url =  "https://jorgeiv-mp-ecommerce-php.herokuapp.com/assets/".$_POST['img'];
+$item->title =  $_POST["title"];
+$item->quantity = $_POST["unit"];
+$item->unit_price = $_POST['price'] ;
+$item->currency_id = "ARS";
+
+$preference->items = array($item);// guardo el item
+
+// seteo url de notificaciones con DB donde recibimos el json
+$preference->notification_url="https://sanitarioslitoral.com.ar/api/notifications2.php";
+
+// seteo referencia externa con nuestro correo
+$preference->external_reference = "nachovillalta@yahoo.com.ar";
+
+// defino datos del Payer
+$payer = new MercadoPago\Payer();
+  $payer->name = "Lalo";
+  $payer->surname = "Landa";
+  $payer->email = "test_user_63274575@testuser.com";
+//   $payer->date_created = "2018-06-02T12:58:41.425-04:00";
+  $payer->phone = array(
+    "area_code" => "11",
+    "number" => "22223333"
+  );
+  
+//   $payer->identification = array(
+//     "type" => "DNI",
+//     "number" => "12345678"
+//   );
+  
+  $payer->address = array(
+    "street_name" => "False",
+    "street_number" => 123,
+    "zip_code" => "1111"
+  );
+
+$preference->save();
+
+?>
+
+
 <!DOCTYPE html>
 <html class="supports-animation supports-columns svg no-touch no-ie no-oldie no-ios supports-backdrop-filter as-mouseuser" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -124,13 +194,16 @@
                                             </h3>
                                         </div>
                                         <h3 >
-                                            <?php echo $_POST['price'] ?>
+                                            $ <?php echo $_POST['price'] ?>
                                         </h3>
                                         <h3 >
-                                            <?php echo "$" . $_POST['unit'] ?>
+                                            <?php echo $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <button type="submit" class="mercadopago-button" formmethod="post">Pagar</button>
+                                    <button type="submit" class="mercadopago-button" formmethod="post">
+                                        <a href="<?php echo $preference->init_point; ?>">Pagar la Compra</a>
+
+                                    </button>
                                 </div>
                             </div>
                         </div>
