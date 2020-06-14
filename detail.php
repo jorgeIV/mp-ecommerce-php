@@ -63,8 +63,9 @@ $payer = new MercadoPago\Payer();
     "street_number" => 123,
     "zip_code" => "1111"
   );
+  $preference->payer = $payer;
 
-$preference->save();
+  $preference->save();
 
 ?>
 
