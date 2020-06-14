@@ -176,7 +176,6 @@ $preference->save();
                                                     <div class=""></div>
                                                     <img src="./assets/003.jpg" class="ir ir item-image as-producttile-image" alt="" width="445" height="445" style="content:-webkit-image-set(url(<?php echo $_POST['img'] ?>) 2x);">
                                                 </div>
-                                                img path: <?php echo $_POST["img"] ?>
 
                                                 
                                             </div>
@@ -222,6 +221,8 @@ $preference->save();
             <div class="as-footnotes-content">
                 <div class="as-footnotes-sosumi">
                     Todos los derechos reservados Tienda Tecno 2019
+                    img path: <?php echo $_POST["img"]; ?>
+
                 </div>
             </div>
         </div>
