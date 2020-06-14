@@ -25,7 +25,6 @@ $preference->back_urls = array(
     "pending" => "https://jorgeiv-mp-ecommerce-php.herokuapp.com/pending.php"
 );
 
-echo $_POST["img"];
 // Crea un ítem en la preferencia
 $item = new MercadoPago\Item();
 $item->picture_url =  "https://jorgeiv-mp-ecommerce-php.herokuapp.com/assets/".$_POST['img'];
@@ -177,6 +176,8 @@ $preference->save();
                                                     <div class=""></div>
                                                     <img src="./assets/003.jpg" class="ir ir item-image as-producttile-image" alt="" width="445" height="445" style="content:-webkit-image-set(url(<?php echo $_POST['img'] ?>) 2x);">
                                                 </div>
+                                                img path: <?php echo $_POST["img"] ?>
+
                                                 
                                             </div>
 
