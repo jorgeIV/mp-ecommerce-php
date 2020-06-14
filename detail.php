@@ -47,7 +47,7 @@ $payer = new MercadoPago\Payer();
   $payer->name = "Lalo";
   $payer->surname = "Landa";
   $payer->email = "test_user_63274575@testuser.com";
-//   $payer->date_created = "2018-06-02T12:58:41.425-04:00";
+  $payer->date_created = "2019-06-02T12:58:41.425-04:00";
   $payer->phone = array(
     "area_code" => "11",
     "number" => "22223333"
@@ -210,10 +210,7 @@ $preference->save();
                                             <?php echo $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <!-- <button type="submit" class="mercadopago-button" formmethod="post"> -->
-                                        <a class="mercadopago-button" href="<?php echo $preference->init_point; ?>">Pagar la Compra</a>
-
-                                    <!-- </button> -->
+                                    <a class="mercadopago-button" href="<?php echo $preference->init_point; ?>">Pagar la Compra</a>
                                 </div>
                             </div>
                         </div>
