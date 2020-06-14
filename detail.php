@@ -25,21 +25,23 @@ $preference->back_urls = array(
     "pending" => "https://jorgeiv-mp-ecommerce-php.herokuapp.com/pending.php"
 );
 
+echo $_POST["img"];
 // Crea un ítem en la preferencia
 $item = new MercadoPago\Item();
 $item->picture_url =  "https://jorgeiv-mp-ecommerce-php.herokuapp.com/assets/".$_POST['img'];
 $item->title =  $_POST["title"];
+$item->description = "Dispositivo móvil de Tienda e-commerce";
 $item->quantity = $_POST["unit"];
 $item->unit_price = $_POST['price'] ;
 $item->currency_id = "ARS";
+// seteo referencia externa con nuestro correo
+$preference->external_reference = "nachovillalta@yahoo.com.ar";
 
 $preference->items = array($item);// guardo el item
 
 // seteo url de notificaciones con DB donde recibimos el json
 $preference->notification_url="https://sanitarioslitoral.com.ar/api/notifications2.php";
 
-// seteo referencia externa con nuestro correo
-$preference->external_reference = "nachovillalta@yahoo.com.ar";
 
 // defino datos del Payer
 $payer = new MercadoPago\Payer();
@@ -76,6 +78,9 @@ $preference->save();
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="format-detection" content="telephone=no">
+
+    <script src="https://www.mercadopago.com/v2/security.js" view="item"></script>
+
 
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js"
