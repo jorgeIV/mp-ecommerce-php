@@ -18,7 +18,7 @@ $preference->payment_methods = array(
   );
 
 // back urls y autoreturn
-$preference->auto_return = "all"; //Redirige automáticamente a tu sitio cuando el pago finaliza como aprobado. Los valores posibles son approved y all.
+$preference->auto_return = "approved"; 
 $preference->back_urls = array(
     "success" => "https://jorgeiv-mp-ecommerce-php.herokuapp.com/success.php",
     "failure" => "https://jorgeiv-mp-ecommerce-php.herokuapp.com/failure.php",
@@ -27,7 +27,7 @@ $preference->back_urls = array(
 
 // Crea un ítem en la preferencia
 $item = new MercadoPago\Item();
-$item->picture_url =  "https://jorgeiv-mp-ecommerce-php.herokuapp.com/assets/".$_POST['img'];
+$item->picture_url =  "https://jorgeiv-mp-ecommerce-php.herokuapp.com/".$_POST['img'];
 $item->title =  $_POST["title"];
 $item->description = "Dispositivo móvil de Tienda e-commerce";
 $item->quantity = $_POST["unit"];
@@ -221,8 +221,6 @@ $preference->save();
             <div class="as-footnotes-content">
                 <div class="as-footnotes-sosumi">
                     Todos los derechos reservados Tienda Tecno 2019
-                    img path: <?php echo $_POST["img"]; ?>
-
                 </div>
             </div>
         </div>
